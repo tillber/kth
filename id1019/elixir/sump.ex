@@ -1,7 +1,7 @@
 # sump.ex
-defmodule Sump do
-  @type tree :: {:node, integer(), tree(), tree()} | nil
-  @spec sum(tree()) :: integer()
+defmodule Sum do
+  @type tree :: nil | {:node, integer(), tree(), tree()}
+  @spec sum(tree) :: integer()
 
   def sum(nil) do 0 end
   def sum({:node, value, left, right}) do
@@ -10,11 +10,11 @@ defmodule Sump do
     spawn(fn -> send(parent, {:result, sum(right)}) end)
 
     receive do
-      {:result, x} ->
+      {:result, resl} ->
         receive do
-          {:result, y} ->
-            value + x + y
+          {:result, resr} ->
+            resl + value + resr
         end
-      end
+    end
   end
 end
