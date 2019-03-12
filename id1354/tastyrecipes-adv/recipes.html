@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Recept</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="img/ico" href="img/favicon.ico">
+
+    <!-- Reset Stylesheet -->
+    <link rel="stylesheet" href="css/reset.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/3-col-portfolio.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Master inclusion script -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script>
+      $(function(){
+        $("#master").load("master.html");
+      });
+    </script>
+
+  </head>
+
+  <body>
+
+    <!-- Master -->
+    <div id="master"></div>
+
+    <script>
+    function loadXMLDoc(route){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                readRecipes(this);
+            }
+        }
+
+        xmlhttp.open("GET", route, true);
+        xmlhttp.send();
+    }
+
+    function getURLParameter(key){
+        key = key.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    function readRecipes(xml){
+        var xmlDoc = xml.responseXML;
+        var recipes = xmlDoc.getElementsByTagName("recipe");
+        for(var i = 3; i < (recipes.length + 3); i++){
+            var card = document.getElementById("cardImage" + i);
+            card.setAttribute("src", recipes[i].getElementsByTagName("image")[0].childNodes[0].nodeValue);
+
+            card = document.getElementById("cardTitle" + i);
+            card.setAttribute("href", "recipe.html?country=" + getURLParameter("country") + "&title=" + recipes[i].getAttribute("title"));
+            card.innerHTML = recipes[i].getAttribute("title");
+
+            card = document.getElementById("cardTime" + i);
+            card.innerHTML = "TILLAGNINGSTID " + recipes[i].getElementsByTagName("time")[0].childNodes[0].nodeValue + " MIN";
+
+            card = document.getElementById("cardDesc" + i);
+            card.innerHTML = recipes[i].getElementsByTagName("description")[0].childNodes[0].nodeValue;
+        }
+    }
+
+    loadXMLDoc("data/sverige.xml");
+
+    </script>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Page Heading -->
+      <h2 class="my-4">Recept
+        <small>Secondary Text</small>
+      </h2>
+
+      <div class="row">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 mb-4 recipe-link">
+            <div class="card h-95">
+              <a href="#"><img class="card-img-top cover-fit" src="" alt="" id="cardImage0"></a>
+              <div class="card-body">
+                <h4 class="card-title recipe-link">
+                  <a href="#" id="cardTitle0"></a>
+                </h4>
+                <small class="cooking-time text-muted" id="cardTime0"></small>
+                <p class="card-text recipe-link" id="cardDesc0"></p>
+              </div>
+            </div>
+          </div>
+          <!-- /.col-md-4 cardTitle0 cardImage0 cardTime0 cardDesc0-->
+          <div class="col-lg-4 col-md-6 mb-4 recipe-link">
+            <div class="card h-95">
+              <a href="#"><img class="card-img-top cover-fit" src="" alt="" id="cardImage1"></a>
+              <div class="card-body recipe-link">
+                <h4 class="card-title recipe-link">
+                  <a href="#" id="cardTitle1"></a>
+                </h4>
+                <small class="cooking-time text-muted" id="cardTime1"></small>
+                <p class="card-text recipe-link" id="cardDesc1"></p>
+              </div>
+            </div>
+          </div>
+          <!-- /.col-md-4 -->
+          <div class="col-lg-4 col-md-6 mb-4 recipe-link">
+            <div class="card h-95">
+              <a href="#"><img class="card-img-top cover-fit" src="" alt="" id="cardImage2"></a>
+              <div class="card-body recipe-link">
+                <h4 class="card-title recipe-link">
+                  <a href="#" id="cardTitle2"></a>
+                </h4>
+                <small class="cooking-time text-muted" id="cardTime2"></small>
+                <p class="card-text recipe-link" id="cardDesc2"></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-4 recipe-link">
+            <div class="card h-95">
+              <a href="#"><img class="card-img-top cover-fit" src="" alt="" id="cardImage3"></a>
+              <div class="card-body">
+                <h4 class="card-title recipe-link">
+                  <a href="#" id="cardTitle3"></a>
+                </h4>
+                <small class="cooking-time text-muted" id="cardTime3"></small>
+                <p class="card-text recipe-link" id="cardDesc3"></p>
+              </div>
+            </div>
+          </div>
+          <!-- /.col-md-4 cardTitle0 cardImage0 cardTime0 cardDesc0-->
+          <div class="col-lg-4 col-md-6 mb-4 recipe-link">
+            <div class="card h-95">
+              <a href="#"><img class="card-img-top cover-fit" src="" alt="" id="cardImage4"></a>
+              <div class="card-body recipe-link">
+                <h4 class="card-title recipe-link">
+                  <a href="#" id="cardTitle4"></a>
+                </h4>
+                <small class="cooking-time text-muted" id="cardTime4"></small>
+                <p class="card-text recipe-link" id="cardDesc4"></p>
+              </div>
+            </div>
+          </div>
+          <!-- /.col-md-4 -->
+          <div class="col-lg-4 col-md-6 mb-4 recipe-link">
+            <div class="card h-95">
+              <a href="#"><img class="card-img-top cover-fit" src="" alt="" id="cardImage5"></a>
+              <div class="card-body recipe-link">
+                <h4 class="card-title recipe-link">
+                  <a href="#" id="cardTitle5"></a>
+                </h4>
+                <small class="cooking-time text-muted" id="cardTime5"></small>
+                <p class="card-text recipe-link" id="cardDesc5"></p>
+              </div>
+            </div>
+          </div>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-3 bg-light">
+      <div class="container">
+        <p class="m-0 text-center text-grey">Copyright &copy; The Tasty Recipes 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>

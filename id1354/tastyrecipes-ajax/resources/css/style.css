@@ -1,0 +1,89 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+html *
+{
+   font-family: 'Roboto', sans-serif !important;
+}
+
+div#login-modal{
+  margin-top: 5reM;
+}
+
+div.search-bar{
+  margin-left: 5.5rem;
+}
+
+.cover-fit{
+  object-fit: cover;
+  object-position: center;
+}
+
+.text-centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+}
+
+.text-stylish{
+  font-size: 3rem;
+  text-shadow: 1.5px 1.5px 4px black;
+  color: white;
+}
+
+div.search-bar button{
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+small.cooking-time{
+  font-size: 0.85em;
+}
+
+img.card-img-top{
+  height: 10rem;
+}
+
+h4.recipe-link{
+  margin: 0;
+}
+
+p.recipe-link{
+  margin-top: 0.5rem;
+  max-height: 7.5rem;
+  height: 7.5rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp:5;
+  -webkit-box-orient: vertical;
+}
+
+div.recipe-link{
+  max-height: 25rem;
+  text-overflow: ellipsis;
+}
+
+div.card-body{
+  line-height: 1.5;
+}
+
+h5{
+  font-weight: bold;
+}
+
+.country-desc{
+  margin-top: 0.5rem;
+}
+
+
+p.no-comments{
+  color: grey;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.modal-login{
+  max-width: 400px !important;
+}

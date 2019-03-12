@@ -1,0 +1,4 @@
+O:4:"User":2:{s:8:"username";s:6:"martin";s:8:"password";s:3:"123";};
+O:4:"User":2:{s:8:"username";s:6:"anonym";s:8:"password";s:3:"321";};
+O:4:"User":2:{s:8:"username";s:6:"martin";s:8:"password";s:3:"123";};
+O:4:"User":2:{s:8:"username";s:5:"marti";s:8:"password";s:3:"123";};

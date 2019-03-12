@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<country title="Sverige">
+  <image>Gravad lax</image>
+  <image>Köttfärslimpa</image>
+  <image>Kroppkakor</image>
+  <description>Den svenska maten har påverkats av våra långa vintrar. Rotfrukter, bär, sill, kantareller, fläsk och vilt är några av råvarorna vi hade tillgång till året om, eller kunde bevara. Utomlands är vi mest kända för köttbullar, smörgåsbord och knäckebröd. Här har vi samlat våra recept på svensk mat.</description>
+  <quote>Vergoofin der flicke støøbin mit der børk-børk yubetcha!</quote>
+  <chef>The Swedish Chef</chef>
+  
+  <recipes>
+	<recipe title="Köttbullar">
+		<description>Hemgjorda köttbullar slår det mesta och går alltid hem. Här är ett bra grundrecept som du gärna kan servera med gräddsås, potatismos och lingonsylt.</description>
+		<time>45</time>
+		<image>https://cdn-rdb.arla.com/Files/arla-se/3776820023/2ba4415c-73be-4f72-aaaf-a2ce2c7831bf.jpeg?mode=crop&amp;w=1680&amp;h=750&amp;scale=both&amp;ak=f525e733&amp;hm=e6b63260</image>
+		
+		<ingredients>
+			<ingredient>500 g köttfärs</ingredient>
+			<ingredient>1/2 dl ströbröd</ingredient>
+			<ingredient>1 dl matlagningsgrädde</ingredient>
+			<ingredient>2 msk finhackad lök</ingredient>
+			<ingredient>1 ägg</ingredient>
+			<ingredient>1 tsk salt</ingredient>
+			<ingredient>1 krm svartpeppar</ingredient>
+			<ingredient>2 msk flytande margarin</ingredient>
+		</ingredients>
+		
+		<tasks>
+			<task>Blanda ströbröd och grädde. Låt svälla 10 min.</task>
+			<task>Lägg i färs, lök, ägg, salt och peppar. Rör till en jämn smet.</task>
+			<task>Forma smeten till jämna bullar. Stek dem i smör-&amp;rapsolja på medelvärme 3-5 min.</task>
+		</tasks>
+	</recipe>
+	
+	<recipe title="Pannkakor">
+		<description>Pannkakor är en klar vardagsfavorit! Här är ett enkelt grundrecept på tunna pannkakor. Stek och servera med sylt, grädde, glass eller kvarg.</description>
+		<time>15</time>
+		<image>https://cdn-rdb.arla.com/Files/arla-se/3249856695/6aa9b774-9f87-458a-b7e5-7cf4781fca89.jpg?mode=crop&amp;w=1680&amp;h=750&amp;scale=both&amp;ak=f525e733&amp;hm=e6b63260</image>
+		
+		<ingredients>
+			<ingredient>3 dl vetemjöl</ingredient>
+			<ingredient>6 dl mjölk</ingredient>
+			<ingredient>3 ägg</ingredient>
+			<ingredient>1/2 tsk salt</ingredient>
+			<ingredient>2 msk smör</ingredient>
+		</ingredients>
+		
+		<tasks>
+			<task>Vispa ut mjölet i hälften av mjölken till en slät smet. Vispa i resterande mjölk, ägg och salt.</task>
+			<task>Låt smeten svälla ca 10 min.</task>
+			<task>Smält smör i en stekpanna och häll ner i smeten. Grädda tunna pannkakor.</task>
+		</tasks>
+	</recipe>
+	
+	<recipe title="Kantarellsoppa">
+		<description>Kantarellsoppa med massor av svamp! Bjud vännerna på en lyxig och härligt värmande kantarellsoppa som kommer att göra succé.</description>
+		<time>30</time>
+		<image>https://cdn-rdb.arla.com/Files/arla-se/1202254869/e100b672-9910-4bd9-9108-7721c4f2709c.jpeg?mode=crop&amp;w=1680&amp;h=750&amp;scale=both&amp;ak=f525e733&amp;hm=e6b63260</image>
+		
+		<ingredients>
+			<ingredient>1 liter färska kantareller</ingredient>
+			<ingredient>1 gul lök</ingredient>
+			<ingredient>3 msk svenskt smör</ingredient>
+			<ingredient>2 msk vetemjöl</ingredient>
+			<ingredient>1 dl torrt vitt vin</ingredient>
+			<ingredient>7 dl vatten</ingredient>
+			<ingredient>1 &amp; 1/2 msk kantarellfond</ingredient>
+			<ingredient>2 dl vispgrädde</ingredient>
+			<ingredient>1/2 tsk salt</ingredient>
+			<ingredient>2 krm svartpeppar</ingredient>
+		</ingredients>
+		
+		<tasks>
+			<task>Ansa och skär svampen i mindre bitar. Skala och finhacka löken. Fräs lök och svamp i smör i en gryta.</task>
+			<task>Rör i mjölet och häll på vinet, låt koka 2 min.</task>
+			<task>Tillsätt vatten och fond. Koka soppan på svag värme under lock ca 10 min.</task>
+			<task>Blanda ner grädden och smaka av med salt och peppar.</task>
+		</tasks>
+	</recipe>
+  </recipes>
+</country>

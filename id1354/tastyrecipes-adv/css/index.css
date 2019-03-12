@@ -1,0 +1,53 @@
+@font-face {
+    font-family: "Calling";
+    src: url("../fonts/callingheart.ttf") format('truetype');
+}
+
+.navbar-brand{
+  //text-shadow: 1.5px 1.5px 4px black;
+  //color: white;
+  font-family: "Calling";
+}
+
+#logo{
+  width: 2rem;
+  margin-right: 0.8rem;
+}
+
+div.index-comment{
+  font-size: .9em;
+  line-height: 1.35em;
+}
+
+h6.user{
+  font-weight: bold;
+  height: 1rem;
+}
+
+h6.latest-comments{
+  margin-top: 1.5rem!important;
+  font-weight: bold;
+  margin-left: 0.25rem;
+}
+
+ol.comment{
+  padding: 0;
+  margin:0;
+  background: none;
+}
+
+div.left{
+  float:left;
+}
+
+div.right{
+  float:right;
+}
+
+div.right, div.left{
+  display: inline-block;
+}
+
+div.comment-footer{
+  padding: 0.5rem 1rem;
+}

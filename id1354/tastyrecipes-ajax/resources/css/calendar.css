@@ -1,0 +1,75 @@
+.calendar{
+  width: auto;
+  text-align: center;
+  font-weight: bold;
+  display: grid;
+  padding: 1%;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.body{
+  font-family: 'Open Sans', sans-serif;
+}
+
+.calendar div{
+  border-bottom: 1px solid black;
+}
+
+div:nth-child(7n + 14){
+  border-right: 1px solid black;
+}
+
+#calendar-head-end ~ div {
+  height: 8rem;
+  text-align: left;
+  padding-top: .5rem;
+  padding-left: .5rem;
+  border-left: 1px solid black;
+}
+
+#calendar-head-end ~ a>div {
+  padding-top: .5rem;
+  padding-left: .5rem;
+}
+
+#calendar-head-end ~ a {
+  border-left: 1px solid black;
+  text-align: left;
+  text-decoration: none;
+}
+
+#calendar-head-end ~ a:hover {
+  text-decoration: none;
+}
+
+.company-name{
+  font-size: 3rem;
+}
+
+#pancakes{
+  background-image: url(https://cdn-rdb.arla.com/Files/arla-se/3249856695/6aa9b774-9f87-458a-b7e5-7cf4781fca89.jpg?mode=crop&w=1680&h=750&scale=both&ak=f525e733&hm=e6b63260);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position;: center;
+  transition: 0.3s;
+  text-shadow: 1.25px 1.25px 0px #000000;
+  width: 100%;
+  height: 100%;
+}
+
+#meatballs{
+  background-image: url(https://cdn-rdb.arla.com/Files/arla-se/3776820023/2ba4415c-73be-4f72-aaaf-a2ce2c7831bf.jpeg?mode=crop&w=1680&h=750&scale=both&ak=f525e733&hm=e6b63260);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 0.3s;
+  width: 100%;
+  text-shadow: 1.25px 1.25px 0px #000000;
+  height: 100%;
+}
+
+.recipe-link{
+  border-bottom: 1px solid black;
+  color: black;
+  text-decoration: none;
+}

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<country title="Japan">
+  <image>Sushi</image>
+  <image>Dumplings</image>
+  <image>Ramen</image>
+  <description>Japansk mat är ofta sofistikerad och elegant mat. Främst tänker vi på sushi, men det ryms mycket mer i det japanska köket. Vanliga råvaror i japansk mat är kokt ris, fisk, skaldjur och grönsaker. Hitta inspirationen bland våra japanska recept.</description>
+  <quote>No rules. Don't be afraid to do whatever you want. Cooking doesn't have to have rules. I don't like it that way.</quote>
+  <chef>Masaharu Morimoto</chef>
+  
+  <recipes>
+	<recipe title="Spicy garlic ramen">
+		<description>En underbart smakrik japansk ramennudelsoppa som är en explosion i smaker och dofter. Basen är en mustig kycklingbuljong som serveras med tunt skivad kycklingfilé, krispig salladslök, örtig koriander och ett krämigt ägg. Den rostade vitlökspastan ger soppan en härligt mustig smak.</description>
+		<time>45</time>
+		<image>https://www.ica.se//icase.azureedge.net/imagevaultfiles/id_150190/cf_259/spicy-garlic-ramen-721351.jpg</image>
+
+		<ingredients>
+		  <ingredient>2 ägg</ingredient>
+		  <ingredient>6 vitlöksklyftor</ingredient>
+		  <ingredient>1/2 dl olja</ingredient>
+		  <ingredient>1 röd chili</ingredient>
+		  <ingredient>1 msk vitvinsvinäger</ingredient>
+		  <ingredient>1/2 dl sesamfrön</ingredient>
+		  <ingredient>salt</ingredient>
+		  <ingredient>15 dl kycklingbuljong</ingredient>
+		  <ingredient>600 g strimlad kycklingfilé</ingredient>
+		  <ingredient>4 portioner nudlar</ingredient>
+		  <ingredient>1/2 påse salladslök</ingredient>
+		  <ingredient>1/2 kruka koriander</ingredient>
+		  <ingredient>1/2 ask böngroddar</ingredient>
+		</ingredients>
+
+		<tasks>
+		  <task>Ägg: Koka upp vatten till äggen. Lägg i dem och sjud 8 minuter. Spola dem sedan kalla och skala dem.</task>
+		  <task>Vitlökspasta: Skala och riv vitlöksklyftorna. Värm oljan i en kastrull och tillsätt vitlöken och låt puttra ca 10 minuter eller tills oljan är ljusbrun. </task>
+		  <task>Dela, kärna ur och strimla chilin. Ta kastrullen från plattan och rör i chili, vinäger och sesamfrön. Mixa eller stöt blandningen i en mortel.</task>
+		  <task>Soppa: Koka upp buljongen. Lägg ner kycklingen och sjud ca 6 minuter.</task>
+		  <task>Smaksätt buljongen med vitlökspasta och smaka av med salt.</task>
+		  <task>Koka nudlarna enligt anvisningen på förpackningen.</task>
+		  <task>Ansa och skiva salladslöken och grovhacka koriandern.</task>
+		  <task>Lägg nudlar och böngroddar i skålar och häll på kyckling och buljong. Strö på salladslök, koriander och dela och lägg i äggen.</task>
+		</tasks>
+	</recipe>
+
+	<recipe title="Beef yakiniku">
+		<description>Beef yakiniku är ett välsmakande asieninspirerat recept där ingredienser som sambal oelek, riven ingefära och soja står för smakerna. Köttet bryns i en het panna innan det blandas med såsen. Till servering finns nudlar, krispiga grönsaker och syrliga limeklyftor där till sist hackad gräslök strösslas över.</description>
+		<time>30</time>
+		<image>https://www.ica.se//icase.azureedge.net/imagevaultfiles/id_117908/cf_259/beef-yakiniku-v24-2015-719075.jpg</image>
+
+		<ingredients>
+			<ingredient>1 vitlöksklyfta</ingredient>
+			<ingredient>1 msk riven ingefära</ingredient>
+			<ingredient>1 dl japansk soja</ingredient>
+			<ingredient>1/2 dl vatten</ingredient>
+			<ingredient>1/2 dl strösocker</ingredient>
+			<ingredient>1/2 tsk sambal oelek</ingredient>
+			<ingredient>250 g pak choi</ingredient>
+			<ingredient>1/2 knippe rädisor</ingredient>
+			<ingredient>1 lime</ingredient>
+			<ingredient>1 msk olja</ingredient>
+			<ingredient>salt och peppar</ingredient>
+			<ingredient>ca 500 g strimlad ryggbiff</ingredient>
+			<ingredient>1 msk olja</ingredient>
+			<ingredient>1/2 kruka gräslök</ingredient>
+			<ingredient>4 portioner äggnudlar</ingredient>
+		</ingredients>
+
+		<tasks>
+			<task>Sås: Skala och riv vitlök och ingefära. Blanda alla ingredienser till såsen i en kastrull. Koka såsen ett par minuter under omrörning.</task>
+			<task>Grönsaker: Ansa och strimla pak choi och skiva rädisor. Skölj limen och riv det yttersta av skalet. Dela limen och pressa saften ur halva. Blanda skal och saft med grönsakerna och oljan. Smaka av med salt och peppar.</task>
+			<task>Skär den andra halvan av limen i klyftor.</task>
+			<task>Kött: Bryn köttet i omgångar i oljan i en het stekpanna. Häll på såsen och koka någon minut.</task>
+			<task>Tillbehör: Hacka gräslöken fint. Koka nudlarna enligt anvisningen på förpackningen.</task>
+			<task>Servera köttet med nudlar, grönsaker och limeklyftor. Strö över gräslöken.</task>
+		</tasks>
+	</recipe>
+
+	<recipe title="Laxteriyaki">
+		<description>Teryakilax är en snabbt tillagad rätt med exotiska smaker av lime, chilifrukt och sesamfrön. Laxen serveras på en bädd av spenat och med jasminris som tillbehör.</description>
+		<time>30</time>
+		<image>https://www.ica.se//icase.azureedge.net/imagevaultfiles/id_67952/cf_259/lax-teriyaki-514684.jpg</image>
+
+		<ingredients>
+			<ingredient>1 dl japansk soja</ingredient>
+			<ingredient>1 dl vitt vin</ingredient>
+			<ingredient>3 msk socker</ingredient>
+			<ingredient>2 msk jordnötsolja</ingredient>
+			<ingredient>600 g laxfilé i portionsbitar</ingredient>
+			<ingredient>150 g spenat</ingredient>
+			<ingredient>4 msk rostade sesamfrön</ingredient>
+			<ingredient>1 lime</ingredient>
+			<ingredient>1 chilifrukt</ingredient>
+			<ingredient>4 portioner jasminris</ingredient>
+		</ingredients>
+
+		<tasks>
+			<task>Blanda en marinad av soja, vitt vin och socker i en skål.</task>
+			<task>Värm oljan i en stekpanna. Stek laxen på hög värme ca 8 minuter (den bör fortfarande vara lite rå i mitten annars blir laxen torr).</task>
+			<task>Skölj spenaten och lägg upp den på portionstallrikar tillsammans med laxen.</task>
+			<task>Skeda över marinaden och strö på sesamfrön.</task>
+			<task>Garnera med skivad lime och urkärnad, hackad chilifrukt.</task>
+		</tasks>
+	</recipe>
+  </recipes>
+</country>

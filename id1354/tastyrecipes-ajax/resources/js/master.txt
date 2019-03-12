@@ -1,0 +1,46 @@
+$(document).ready(function() {	
+	$.ajax({url: "../LogButton", success: function(result){
+		$("#log-button").html(result);
+	}});
+
+	function login(){
+		alert("logging in");
+		$.ajax({url: "../Login?username="+$("#username").val()+"&password="+$("#password").val(), success: function(result){
+			alert("logged in");
+		}});
+	}
+
+	function logout(){
+		$.ajax({url: "../Logout", success: function(result){
+			alert("logged out");
+		}});
+	}
+	
+	$("#logout-button").click(function(e) {
+		e.preventDefault();
+		$.ajax({url: "../Logout", success: function(result){
+			alert("logged out");
+			$.ajax({url: "../LogButton", success: function(result){
+				$("#log-button").html(result);
+			}});
+		}});
+	});
+	
+	/*$("#login-button").click(function() {
+		$.ajax({url: "../Login?username="+$("#username").val()+"&password="+$("#password").val(), success: function(result){
+			alert("logged in");
+			$.ajax({url: "../LogButton", success: function(result){
+				$("#log-button").html(result);
+			}});
+		}});
+	});*/
+	
+	$('#login-form').submit(function(){
+		$.ajax({url: "../Login?username="+$("#username").val()+"&password="+$("#password").val(), success: function(result){
+			alert("logged in");
+			$.ajax({url: "../LogButton", success: function(result){
+				$("#log-button").html(result);
+			}});
+		}});
+	});
+});

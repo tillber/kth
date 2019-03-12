@@ -1,0 +1,199 @@
+@media only screen and (max-width: 900px){
+  div.recipes-subtitle{
+    font-size: 1.5rem;
+  }
+
+  div.recipe{
+    font-size: 0.8rem;
+  }
+}
+
+@media only screen and (max-width: 750px){
+  div.recipes-title{
+    font-size: 2.5rem;
+  }
+
+  div.recipes-desc{
+    font-size: 0.85em;
+  }
+
+  div.comments{
+    width: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media only screen and (max-width: 500px){
+  div.recipe{
+    display:block;
+  }
+
+  div.recipes-subtitle{
+    text-align: center;
+  }
+
+  div.recipes-howto{
+    display: block;
+    text-align: center;
+    width: auto;
+    padding-top: 0;
+  }
+
+  div.recipes-ingredients{
+    display: block;
+    text-align: center;
+    width:auto;
+  }
+}
+
+.company-name{
+  font-size: 3rem;
+}
+
+#logo{
+  width: 4rem;
+}
+
+.header{
+  background-image: url("../img/bg.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 1rem;
+}
+
+.body{
+  text-align: center;
+  min-height: 10rem;
+  background-color: white;
+  padding-bottom: 3rem;
+  font-family: 'Open Sans', sans-serif;
+}
+
+body{
+  background: none;
+}
+
+.recipes-ingredients{
+  display: inline-block;
+  width: 25vw;
+  font-family: 'Open Sans', sans-serif;
+  text-align: left;
+  padding: 2rem;
+}
+
+.recipe{
+  text-align: center;
+  display: inline-flex;
+  font-size: 1rem;
+}
+
+.recipes-howto{
+  padding: 2rem;
+  display: inline-block;
+  width: 25vw;
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+  text-align: left;
+}
+
+ol{
+  line-height: 1.5rem;
+}
+
+.recipes-comments{
+  margin-top: 2rem;
+}
+
+.recipes-title{
+  text-shadow: 1.5px 1.5px 4px grey;
+  color: black;
+  font-family: "Calling";
+  font-size: 3.5rem;
+  padding: 2rem;
+}
+
+label{
+  font-weight: bold;
+  margin-right: 1rem;
+  margin-bottom: 5px;
+  display: block;
+}
+
+
+form *{
+  vertical-align: middle;
+}
+
+.textareas{
+  display: inline-block;
+  width: 25rem;
+}
+
+.labels{
+  display: inline-block;
+}
+
+textarea{
+  width: 100%;
+  height: 4rem;
+  resize: none;
+  margin-bottom: 2rem;
+}
+
+.recipes-subtitle{
+  text-shadow: 1.5px 1.5px 4px lightgrey;
+  color: black;
+  font-family: "Calling";
+  font-size: 2rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.recipes-image{
+  width: 60vw;
+  margin-top: 2rem;
+}
+
+.recipes-desc{
+  font-family: 'Open Sans', sans-serif;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+li{
+  list-style-type: decimal;
+  padding-bottom: 1rem;
+}
+
+p{
+  padding-bottom: 1rem;
+}
+
+a.recipe{
+  padding: 1rem;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  color: black;
+  transition: 0.3s;
+}
+
+a.recipe:hover{
+  font-size: 2rem;
+  transition: 0.3s;
+}
+
+.comments{
+  text-align: left;
+  font-family: 'Open Sans', sans-serif;
+  width: 40rem;
+  margin: auto;
+}
+
+.comment{
+  background-color: white;
+  font-family: 'Open Sans', sans-serif;
+  color: black;
+}
