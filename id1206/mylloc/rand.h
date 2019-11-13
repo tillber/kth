@@ -1,0 +1,2 @@
+//rand.h
+int request();
