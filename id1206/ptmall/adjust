@@ -1,8 +1,0 @@
-int adjust(size_t size){
-    int rem = size % ALIGN;
-    if(rem == 0){
-        return size;
-    }else{
-        return size + ALIGN - rem;
-    }
-}
