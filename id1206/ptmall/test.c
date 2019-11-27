@@ -20,12 +20,15 @@ int main(){
     printf("requested size for allocation: %d\n", requested);
     printf("adjusted size for allocation: %d\n", adjust(requested));
     printf("length of freelist: %d\n", length());
+    print();
     printf("let's do some allocation!\n");
     void* allocated_memory = dalloc(requested);
     printf("successfully allocated memory\n");
     dfree(allocated_memory);
     printf("successfully freed memory!\n");
-    printf("length of freelist: %d\n", length());
+    int flist = (int)length();
+    printf("length of freelist: %d\n", flist);
+    print();
 
     return 0;
 }

@@ -40,11 +40,8 @@ struct head *before(struct head *block){
 }
 
 struct head *split(struct head *block, int size){
-    printf("block size: %d\n", block->size);
-    printf("size: %d\n", size);
     int rsize = block->size - size - HEAD;
     block->size = rsize;
-    printf("remaining size of big block: %d\n", block->size);
 
     struct head *splt = after(block);
     splt->bsize = block->size;
@@ -55,7 +52,6 @@ struct head *split(struct head *block, int size){
     struct head *aft = after(splt);
     aft->bsize = splt->size;
     
-    printf("returning the small block, size: %d\n", splt->size);
     return splt;
 }
 
@@ -86,13 +82,12 @@ struct head *new(){
 
     /*only touch the status fields*/
     sentinel->bfree = new->free;
-    sentinel->bsize = new->size;
+    sentinel->bsize = size;
     sentinel->free = FALSE;
     sentinel->size = 0; //changed from NULL to 0 (int cant be NULL)
 
     /*this is the only arena we have*/
     arena = (struct head*)new;
-
     return new;
 }
 
@@ -131,40 +126,103 @@ void insert(struct head *block){
     flist = block;
 }
 
-int adjust(size_t size){
-    int rem = size % ALIGN;
-    if(rem == 0){
-        return size;
-    }else{
-        return size + ALIGN - rem;
+void insertInOrder(struct head *block){
+    struct head* flag = flist;
+
+    /*If freelist would be empty, insert the block as the "one and only"*/
+    if(flag == NULL){
+        block->next = NULL;
+        block->prev = NULL;
+        flist = block;
+        return;
     }
+
+    /*In order to correctly insert the block and keep the presence of the freelist, 
+    we also need a flag to the block before the location where we want to insert the block*/
+    struct head* previousFlag = flag->prev;
+
+    while(flag != NULL){
+        /*If block size is smaller or equal to flag size, insert it before flag*/
+        if(block->size <= flag->size){
+            if(previousFlag != NULL){
+                previousFlag->next = block;
+            }
+
+            block->prev = previousFlag;
+            flag->prev = block;
+            block->next = flag;
+
+            /*If the block to insert is the smallest one in the list, place it first*/
+            if(flag == flist){
+                flist = block;
+            }
+
+            return;
+        }
+
+        /*Else, continue to search for the correct location of insertion*/
+        previousFlag = flag;
+        flag = flag->next;
+    }
+
+    /*If block is larger than all elements in freelist, put it last in the list*/
+    block->next = NULL;
+    previousFlag->next = block;
+    block->prev = previousFlag;
+}
+
+int adjust(size_t size){
+    int rem = MIN(size) % ALIGN;
+    if(rem == 0){
+        return MIN(size);
+    }else{
+        return MIN(size) + ALIGN - rem;
+    }
+}
+
+struct head* findBestFit(int size){
+    struct head *i = flist;
+    while(i != NULL){
+        if(i->size >= LIMIT(size)){
+            detach(i);
+            i->free = FALSE;
+            after(i)->bfree = FALSE;
+            return i;
+        }else{
+            i = i->next;
+        }
+    }
+
+    return NULL; //If we could not find a block;
 }
 
 struct head* find(int size){
     struct head *i = flist;
-    if(i == NULL){
-        return NULL;
-    }else{
-        while(i != NULL){
-            if(i->size >= size){
-                detach(i);
-                if(i->size > LIMIT(size)){
-                    struct head* taken = split(i, size);
-                    insert(before(taken));
-                }
+    while(i != NULL){
+        if(i->size >= size){
+            detach(i);
+            if(i->size >= LIMIT(size)){
+                struct head* taken = split(i, size);
 
+                insert(before(taken));
+                after(taken)->bfree = FALSE;
+                taken->free = FALSE;
+
+                return taken;
+            }else{
                 i->free = FALSE;
+                after(i)->bfree = FALSE;
 
-                if(i->next != NULL){
-                    i->next->prev = i->prev;
-                }
-            
                 return i;
             }
 
+            return i;
+        }else{
             i = i->next;
         }
     }
+
+    return NULL; //If we could not find a block;
 }
 
 void *dalloc(size_t request){
@@ -173,14 +231,12 @@ void *dalloc(size_t request){
     }
 
     int size = adjust(request);
-    printf("adjusted size\n");
-    struct head *taken = find(size); //Kolla om detta är rätt
-    printf("taken\n");
+    struct head *taken = findBestFit(size);
 
     if(taken == NULL){
         return NULL;
     }else{
-        return HIDE(taken); //HIDE(taken)
+        return HIDE(taken);
     }
 }
 
@@ -193,10 +249,10 @@ struct head* merge(struct head* block){
 
         //calculate and set the total size of the merged blocks
         int total_size = (before(block)->size + block->size + HEAD);
-        before(block) = total_size;
+        before(block)->size = total_size;
 
         //update the block after the merged blocks
-        aft->prev = before(block);
+        aft->bsize = before(block)->size;
 
         //continue with the merged block
         block = before(block);
@@ -207,11 +263,11 @@ struct head* merge(struct head* block){
         detach(aft);
 
         //calculate and set the total size of merged blocks
-        int total_size = (aft->size + block->size + HEAD);
-        block->size = total_size;
+        block->size = (aft->size + block->size + HEAD);
 
         //update the block after the merged blocks
-        aft->next->prev = block;
+        aft = after(block);
+        aft->bsize = block->size;        
     }
 
     return block;
@@ -220,23 +276,40 @@ struct head* merge(struct head* block){
 void dfree(void *memory){
     if(memory != NULL){
         struct head *block = MAGIC(memory); 
-        struct head *aft = after(block);
+        block = merge(block);
+        struct head *aft = after(block);        
         block->free = TRUE;
         aft->bfree = TRUE;
-        insert(block);
+        insertInOrder(block);
     }
-    return;
 }
 
 /*Calculates the length of the freelist*/
-int length(){
+int length(int numberOfAllocations){
     struct head *i = flist;
     int count = 0;
     while(i != NULL){
         count++;
         i = i->next;
     }
-    return count;
+    printf("%d\t%d\n", numberOfAllocations, count);
+}
+
+void print(){
+    struct head *i = flist;
+    int count = 1;
+    printf("|");
+    while(i != NULL){
+        printf("#%d size: %d|", count, i->size);
+        count++;
+        i = i->next;
+    }
+    printf("\n");
+}
+
+void terminate(){
+    arena = NULL;
+    flist = NULL;
 }
 
 void sanity(){

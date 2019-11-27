@@ -2,35 +2,80 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <unistd.h>
+#include <math.h>
+#include <stdlib.h>
 #include "dlmall.h"
 
-struct head{
-    uint16_t bfree; //2 bytes, the status of block before
-    uint16_t bsize; //2 bytes, the size of block before
-    uint16_t free; //2 bytes, the status of the block
-    uint16_t size; //2 bytes, the size (max 2¹⁶, 64 KiB)
-    struct head *next; // 8 bytes pointer
-    struct head *prev; // 8 bytes pointer
-};
+#define BUFFER 100
+#define MAX 100
+#define MIN 8
 
-int main(){
-    init();
+int request(){
+    /*k is log(MAX/MIN)*/
+    double k = log(((double)MAX)/MIN);  
 
-    int i = 1;
-    while(i < 16){
-        int requested = i*7;
-        printf("requested size of block: %d\n", requested);
-        printf("adjusted size of block: %d\n", adjust(requested));
-        void* allocated_memory = dalloc(requested);
-        printf("successfully allocated memory\n");
+    /*r is [0..k]*/
+    double r = ((double)(rand()%(int)(k*10000))) / 10000;
 
-        printf("freeing memory...\n");
-        dfree(allocated_memory);
-        printf("successfully freed memory!\n");
-        printf("length of freelist: %d\n\n", length());
+    /*size is [0..MAX]*/
+    int size = (int)((double)MAX/exp(r));
 
-        i++;
+    return size;
+}
+
+/*Makes memory allocations*/
+void doAllocations(int amount){
+    /*Declaring and initializing buffer of pointers to allocated data segments*/
+    void* buffer[BUFFER];
+    for(int i = 0; i < BUFFER; i++){
+        buffer[i] = NULL;
     }
+
+    /*Freeing data segments*/
+    for(int i = 0; i < amount; i++){
+        int index = rand() % BUFFER;
+        if(buffer[index] != NULL){
+            dfree(buffer[index]);
+        }
+
+        size_t size = (size_t)request(MAX);
+        int* memory = dalloc(size);
+
+        /*Check if allocation was successful*/
+        if(memory == NULL){
+            fprintf(stderr, "memory allocation failed!\n");
+            return;
+        }
+
+        /*Allocation was successful: add pointer to buffer*/
+        buffer[index] = memory;
+        /*Write something to the data segment (memory) so we know it exists*/
+        *memory = 123;
+    }
+}
+
+/*Benchmarks the length of the freelist*/
+void benchmarkFLLength(int amount){
+    printf("Benchmarking length of freelist\n");
+    for(int i = BUFFER; i < amount; i += 10){
+        init();
+        doAllocations(i);
+        length(i);
+        terminate();
+    }
+}
+
+int main(int argc, const char *argv[]){
+    if(argc < 2){
+        printf("Please enter the number of allocations that should be made!\n");
+        exit(1);
+    }
+
+    /*The amount of allocations that should be made during the benchmark*/
+    int amount = atoi(argv[1]);
+
+    benchmarkFLLength(amount);
 
     return 0;
 }
