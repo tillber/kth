@@ -133,3 +133,43 @@ int green_join(green_t* thread, void** res){
     swapcontext(suspended->context, next->context);
     return 0;
 }
+
+void green_cond_init(green_cond_t* var){
+    //initialize a green condition variable
+    var->first = NULL;
+    var->last = NULL;
+}
+
+void green_cond_wait(green_cond_t* var){
+    //suspend the current thread on the condition
+    green_t* suspended = running;
+
+    if(var->first == NULL){
+        var->first = suspended;
+        var->last = suspended;
+    }else{
+        var->last->next = suspended;
+        var->last = suspended;
+    }
+
+    green_t* next = dequeue();
+    running = next;
+    swapcontext(suspended->context, next->context);
+}
+
+void green_cond_signal(green_cond_t* var){
+    //move the first suspended thread to the ready queue
+    if(var->first != NULL){
+        green_t* temp = var->first;
+
+        if(var->first == var->last){
+            var->last = NULL;
+        }
+
+        var->first = var->first->next;
+        temp->next = NULL;
+        enqueue(temp);
+    }
+    
+    
+}
