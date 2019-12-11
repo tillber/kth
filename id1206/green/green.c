@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include <ucontext.h>
 #include <assert.h>
+#include <signal.h>
+#include <sys/time.h>
+#include <stdio.h>
+
 #include "green.h"
 
 #define FALSE 0
@@ -10,6 +14,8 @@
 #define STACK_SIZE 4096
 #define MAX 12
 
+#define PERIOD 100
+
 static ucontext_t main_cntx = {0};
 static green_t main_green = {&main_cntx, NULL, NULL, NULL, NULL, NULL, NULL, FALSE};
 
@@ -17,11 +23,11 @@ static green_t *running = &main_green;
 static green_t* first = NULL;
 static green_t* last = NULL;
 
+static sigset_t block;
+
 static void init() __attribute__((constructor));
 
-void init(){
-    getcontext(&main_cntx);
-}
+void timer_handler(int);
 
 /*Ready-Queue Methods*/
 /*Adds the given thread to the end of the ready-queue*/
@@ -52,8 +58,45 @@ green_t* dequeue(){
     }
 }
 
+void timer_handler(int sig){
+    green_t* suspended = running;
+
+    //add the running to the ready queue
+    enqueue(suspended);
+
+    //find the next thread for execution
+    green_t* next = dequeue();
+
+    running = next;
+    swapcontext(suspended->context, next->context);
+}
+
+void init(){
+    getcontext(&main_cntx);
+
+    sigemptyset(&block);
+    sigaddset(&block, SIGVTALRM);
+
+    struct sigaction act = {0};
+    struct timeval interval;
+    struct itimerval period;
+
+    act.sa_handler = timer_handler;
+    assert(sigaction(SIGVTALRM, &act, NULL) == 0);
+
+    interval.tv_sec = 0;
+    interval.tv_usec = PERIOD;
+    period.it_interval = interval;
+    period.it_value = interval;
+    setitimer(ITIMER_VIRTUAL, &period, NULL);
+}
+
 void green_thread(){
+    //block timer interrupts
+    sigprocmask(SIG_BLOCK, &block, NULL);
+
     green_t* this = running;
+
     void* result = (*this->fun)(this->arg);
 
     //place waiting (joining) thread in ready queue
@@ -76,6 +119,9 @@ void green_thread(){
 
     running = next;
     setcontext(next->context);
+
+    //unblock timer interrupts
+    sigprocmask(SIG_UNBLOCK, &block, NULL);
 }
 
 int green_create(green_t *new, void *(*fun)(void*), void *arg){
@@ -103,6 +149,9 @@ int green_create(green_t *new, void *(*fun)(void*), void *arg){
 }
 
 int green_yield(){
+    //block timer interrupts
+    sigprocmask(SIG_BLOCK, &block, NULL);
+
     green_t* suspended = running;
 
     //add suspended to the ready queue
@@ -113,16 +162,24 @@ int green_yield(){
 
     running = next;
     swapcontext(suspended->context, next->context);
+
+    //unblock timer interrupts
+    sigprocmask(SIG_UNBLOCK, &block, NULL);
+
     return 0;
 }
 
 int green_join(green_t* thread, void** res){
+    //block timer interrupts
+    sigprocmask(SIG_BLOCK, &block, NULL);
+
     if(thread->zombie){
         //collect the result
         return 0;
     }
 
     green_t* suspended = running;
+
     //add as joining thread
     thread->join = suspended;
 
@@ -131,6 +188,10 @@ int green_join(green_t* thread, void** res){
 
     running = next;
     swapcontext(suspended->context, next->context);
+
+    //unblock timer interrupts
+    sigprocmask(SIG_UNBLOCK, &block, NULL);
+
     return 0;
 }
 
@@ -140,7 +201,10 @@ void green_cond_init(green_cond_t* var){
     var->last = NULL;
 }
 
-void green_cond_wait(green_cond_t* var){
+/* void green_cond_wait(green_cond_t* var, green_mutex_t* mutex){
+    //block timer interrupts
+    sigprocmask(SIG_BLOCK, &block, NULL);
+
     //suspend the current thread on the condition
     green_t* suspended = running;
 
@@ -152,12 +216,97 @@ void green_cond_wait(green_cond_t* var){
         var->last = suspended;
     }
 
+    if(mutex != NULL){
+        //release the lock if we have a mutex
+        green_mutex_unlock(mutex);
+        //schedule suspended threads
+        enqueue(mutex->suspended);
+    }
+    //schedule the next thread
     green_t* next = dequeue();
+
     running = next;
     swapcontext(suspended->context, next->context);
+
+    if(mutex != NULL){
+        //try to take the lock
+        if(mutex->taken){
+            //suspend the running thread
+            green_t* suspended = running;
+
+            //find the next thread
+            green_t* next = dequeue();
+
+            running = next;
+            swapcontext(suspended->context, next->context);
+        }else{
+            //take the lock
+            mutex->taken = TRUE;
+        }
+    }
+
+    //unblock timer interrupts
+    sigprocmask(SIG_UNBLOCK, &block, NULL);
+
+    return 0;
+} */
+
+void green_cond_wait(green_cond_t *cond, green_mutex_t *mutex){
+    //block timer interrupt
+    sigprocmask(SIG_BLOCK, &block, NULL);
+
+    //suspend the running thread on condition
+    green_t *susp = running;
+
+    if(cond->first == NULL){
+        cond->first = susp;
+        cond->last = susp;
+    }else{
+        cond->last->next = susp;
+        cond->last = susp;
+    }
+
+    if(mutex != NULL){
+        //release the lock if we have a mutex
+        mutex->taken = FALSE;
+
+        //schedule suspended threads 
+        green_mutex_unlock(mutex);
+    }
+    //schedule the next thread
+    green_t *next = dequeue();
+
+    running = next;
+    swapcontext(susp->context, next->context);
+
+    if(mutex != NULL){
+        //try to take the lock
+        while(mutex->taken){
+            //Bad luck, suspend
+            susp = running;
+
+            susp->next = mutex->suspended;
+            
+            mutex->suspended = susp;
+
+            //find the next thread
+            green_t *next = dequeue();
+
+            running = next;
+            swapcontext(susp->context, next->context);
+        }
+        //take the lock
+        mutex->taken = TRUE;
+    }
+    //unblock
+    sigprocmask(SIG_UNBLOCK, &block, NULL);
+
 }
 
 void green_cond_signal(green_cond_t* var){
+    //block timer interrupts
+    sigprocmask(SIG_BLOCK, &block, NULL);
+
     //move the first suspended thread to the ready queue
     if(var->first != NULL){
         green_t* temp = var->first;
@@ -171,5 +320,55 @@ void green_cond_signal(green_cond_t* var){
         enqueue(temp);
     }
     
-    
+    //unblock timer interrupts
+    sigprocmask(SIG_UNBLOCK, &block, NULL);
+}
+
+int green_mutex_init(green_mutex_t* mutex){
+    mutex->taken = NULL;
+    mutex->suspended = NULL;
+}
+
+int green_mutex_lock(green_mutex_t* mutex){
+    //block timer interrupt
+    sigprocmask(SIG_BLOCK, &block, NULL);
+
+    green_t* suspended = running;
+    if(mutex->taken){
+        //suspend the running thread
+        suspended->next = mutex->suspended;
+        mutex->suspended = suspended;
+
+        //find the next thread
+        green_t* next = dequeue();
+
+        running = next;
+        swapcontext(suspended->context, next->context);
+    }else{
+        //take the lock
+        mutex->taken = TRUE;
+    }
+
+    //unblock timer interrupt
+    sigprocmask(SIG_UNBLOCK, &block, NULL);
+
+    return 0;
+}
+
+int green_mutex_unlock(green_mutex_t* mutex){
+    //block timer interrupt
+    sigprocmask(SIG_BLOCK, &block, NULL);
+
+    if(mutex->suspended != NULL){
+        //move suspended threads to the ready queue
+        enqueue(mutex->suspended);
+    }else{
+        //release lock
+        mutex->taken = FALSE;
+    }
+
+    //unblock timer interrupt
+    sigprocmask(SIG_UNBLOCK, &block, NULL);
+
+    return 0;
 }
