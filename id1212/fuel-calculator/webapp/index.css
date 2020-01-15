@@ -1,0 +1,103 @@
+body{
+	padding-left: 2rem;
+	padding-right: 2rem;
+	padding-top: 2rem;
+}
+img.fuelImage{
+	margin-right: 1rem;
+}
+div#results{
+	margin-bottom: 1rem;
+}
+select {
+    border:1px solid #A9A9A9;
+    height:22px;
+}
+div.left{
+	width: 50%;
+	display: inline-block;
+}
+div.right{
+	width: 50%;
+	display: inline-block;
+	border: 1px solid #000;
+}
+input.submit{
+	float: right;
+}
+
+p.error{
+	color: red;
+}
+
+div.from, div.to, .formDiv{
+	display: inline-block;
+}
+.formDiv{
+	padding-right: 0.5rem;
+}
+div.from{
+	padding-right: 1rem;
+}
+
+div.to{
+	padding-left: 1rem;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  display: none;
+  margin-top: 1rem;
+}
+th, td {
+  text-align: left;
+  padding: 0.5rem;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+span.bycompany{
+	margin-left: 1rem;
+}
+#addStation{
+	border: 1px solid black;
+	margin: 0;
+}
+#addStationForm{
+	margin-top: 3rem;
+}
+#addStationForm label, input{
+	display:block;
+}
+#calcForm label, input{
+	display:block;
+}
+select, button{
+	width: 8rem;
+}
+#add{
+	width: 8rem;
+}
+#calculate{
+	width: 8rem;
+}
+#calcForm i{
+	padding-right: 0.5rem;
+}
+#calcForm label{
+	font-size: 0.8rem;
+}
+#addStationForm label{
+	font-size: 0.8rem;
+}
+.margin-left{
+	margin-left: 1rem;
+}
+#compareStations{
+	border: 1px solid black;
+	margin: 0;
+}
+#successfulAdd{
+	display: none;
+}
