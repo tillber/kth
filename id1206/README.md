@@ -1,6 +1,8 @@
 ## ID1206 Operating systems @ KTH <br/>
 [https://www.kth.se/social/course/ID1206/](https://www.kth.se/social/course/ID1206/) <br/>
 
+code assignments and seminars developed in C <br/>
+
 #### Assigments
 * The structure of a process, "A heap, a stack, a bottle and a rack": [heap](https://github.com/tillber/kth/tree/master/id1206/heap)
 * How to create a process, "Hello Dolly": [dolly](https://github.com/tillber/kth/tree/master/id1206/dolly)
